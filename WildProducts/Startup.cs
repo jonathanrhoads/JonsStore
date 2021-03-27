@@ -51,6 +51,7 @@ namespace WildProducts
             {
                 endpoints.MapDefaultControllerRoute();
             });
+            SeedData.EnsurePopulated(app);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace WildProducts.Models
             StoreDbContext context = app.ApplicationServices
                 .CreateScope().ServiceProvider.GetRequiredService<StoreDbContext>();
 
-            if(context.Database.GetAppliedMigrations().Any())
+            if(context.Database.GetPendingMigrations().Any())
             {
                 context.Database.Migrate();
             }
