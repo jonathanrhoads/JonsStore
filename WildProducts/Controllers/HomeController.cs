@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WildProducts.Models;
+using WildProducts.Models.ViewModels;
 
 namespace WildProducts.Controllers
 {
@@ -15,10 +16,19 @@ namespace WildProducts.Controllers
         {
             repository = repo;
         }
-        public IActionResult Index(int productPage = 1) => 
-            View(repository.Products
-                .OrderBy(p => p.ProductID)
-                .Skip((productPage - 1) * PageSize)
-                .Take(PageSize));
+        public ViewResult Index(int productPage = 1) =>
+            View(new ProductsListViewModel
+            {
+                Products = repository.Products
+                    .OrderBy(p => p.ProductID)
+                    .Skip((productPage - 1) * PageSize)
+                    .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    ItemsPerPage = PageSize,
+                    TotalItems = repository.Products.Count()
+                }
+            });
     }
 }

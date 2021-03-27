@@ -49,7 +49,10 @@ namespace WildProducts
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+            endpoints.MapControllerRoute("pagination",
+                "Products/Page{productPage}",
+                new { Controller = "Home", action = "Index" });
+            endpoints.MapDefaultControllerRoute();
             });
             SeedData.EnsurePopulated(app);
         }
